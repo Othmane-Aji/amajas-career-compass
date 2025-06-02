@@ -3,9 +3,11 @@ import React, { useState } from 'react';
 import Sidebar from './Sidebar';
 import TopHeader from './TopHeader';
 import ResumeUploadPanel from './ResumeUploadPanel';
-import CountrySelectionPanel from './CountrySelectionPanel';
+import RegionSelectionPanel from './RegionSelectionPanel';
 import JobPreferencesPanel from './JobPreferencesPanel';
 import ApplicationStatusPanel from './ApplicationStatusPanel';
+import ExtractedResumeInfoPanel from './ExtractedResumeInfoPanel';
+import AllAppliedJobsPanel from './AllAppliedJobsPanel';
 
 const Dashboard: React.FC = () => {
   const [activeSection, setActiveSection] = useState('dashboard');
@@ -16,15 +18,16 @@ const Dashboard: React.FC = () => {
         return (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <ResumeUploadPanel />
-            <CountrySelectionPanel />
+            <RegionSelectionPanel />
             <JobPreferencesPanel />
             <ApplicationStatusPanel />
           </div>
         );
       case 'resume':
         return (
-          <div className="max-w-2xl">
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
             <ResumeUploadPanel />
+            <ExtractedResumeInfoPanel />
           </div>
         );
       case 'preferences':
@@ -35,8 +38,8 @@ const Dashboard: React.FC = () => {
         );
       case 'applications':
         return (
-          <div className="max-w-4xl">
-            <ApplicationStatusPanel />
+          <div className="max-w-6xl">
+            <AllAppliedJobsPanel />
           </div>
         );
       case 'messages':

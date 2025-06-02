@@ -5,7 +5,6 @@ import { Check } from 'lucide-react';
 interface JobPreferences {
   jobTypes: string[];
   industries: string[];
-  salaryRange: { min: number; max: number };
 }
 
 const jobTypes = [
@@ -31,8 +30,7 @@ const industries = [
 const JobPreferencesPanel: React.FC = () => {
   const [preferences, setPreferences] = useState<JobPreferences>({
     jobTypes: ['full-time'],
-    industries: ['Technology'],
-    salaryRange: { min: 50000, max: 150000 }
+    industries: ['Technology']
   });
 
   const toggleJobType = (jobType: string) => {
@@ -50,13 +48,6 @@ const JobPreferencesPanel: React.FC = () => {
       industries: prev.industries.includes(industry)
         ? prev.industries.filter(ind => ind !== industry)
         : [...prev.industries, industry]
-    }));
-  };
-
-  const updateSalaryRange = (field: 'min' | 'max', value: number) => {
-    setPreferences(prev => ({
-      ...prev,
-      salaryRange: { ...prev.salaryRange, [field]: value }
     }));
   };
 
@@ -105,54 +96,6 @@ const JobPreferencesPanel: React.FC = () => {
               <span className="text-gray-700">{industry}</span>
             </label>
           ))}
-        </div>
-      </div>
-
-      {/* Salary Range */}
-      <div className="mb-6">
-        <h3 className="text-sm font-medium text-gray-700 mb-3">Salary Range (USD)</h3>
-        <div className="space-y-4">
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="block text-xs text-gray-500 mb-1">Minimum</label>
-              <input
-                type="number"
-                value={preferences.salaryRange.min}
-                onChange={(e) => updateSalaryRange('min', parseInt(e.target.value) || 0)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                placeholder="50,000"
-              />
-            </div>
-            <div>
-              <label className="block text-xs text-gray-500 mb-1">Maximum</label>
-              <input
-                type="number"
-                value={preferences.salaryRange.max}
-                onChange={(e) => updateSalaryRange('max', parseInt(e.target.value) || 0)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                placeholder="150,000"
-              />
-            </div>
-          </div>
-          
-          {/* Salary Range Slider Visual */}
-          <div className="px-2">
-            <div className="relative">
-              <div className="h-2 bg-gray-200 rounded-full">
-                <div 
-                  className="h-2 bg-blue-500 rounded-full"
-                  style={{
-                    marginLeft: `${(preferences.salaryRange.min / 200000) * 100}%`,
-                    width: `${((preferences.salaryRange.max - preferences.salaryRange.min) / 200000) * 100}%`
-                  }}
-                />
-              </div>
-              <div className="flex justify-between text-xs text-gray-500 mt-1">
-                <span>$0</span>
-                <span>$200k+</span>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
 

@@ -10,7 +10,8 @@ import {
   Bell,
   ChevronLeft,
   ChevronRight,
-  LayoutDashboard
+  LayoutDashboard,
+  List
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -21,9 +22,9 @@ interface SidebarProps {
 
 const navigationItems = [
   { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
-  { id: 'resume', label: 'Resume Upload', icon: FileUp },
+  { id: 'resume', label: 'Resume Management', icon: FileUp },
   { id: 'preferences', label: 'Job Preferences', icon: Settings },
-  { id: 'applications', label: 'Application Status', icon: Home },
+  { id: 'applications', label: 'All Applications', icon: List },
   { id: 'messages', label: 'Messages', icon: MessageSquare },
   { id: 'profile', label: 'Profile Settings', icon: User },
 ];
