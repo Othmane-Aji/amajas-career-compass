@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Sidebar from './Sidebar';
 import TopHeader from './TopHeader';
@@ -11,14 +10,15 @@ import AllAppliedJobsPanel from './AllAppliedJobsPanel';
 
 const Dashboard: React.FC = () => {
   const [activeSection, setActiveSection] = useState('dashboard');
+  const [resumeHasCountry, setResumeHasCountry] = useState(false);
 
   const renderContent = () => {
     switch (activeSection) {
       case 'dashboard':
         return (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <ResumeUploadPanel />
-            <RegionSelectionPanel />
+            <ResumeUploadPanel onResumeAnalyzed={(hasCountry) => setResumeHasCountry(hasCountry)} />
+            {!resumeHasCountry && <RegionSelectionPanel />}
             <JobPreferencesPanel />
             <ApplicationStatusPanel />
           </div>
@@ -26,7 +26,7 @@ const Dashboard: React.FC = () => {
       case 'resume':
         return (
           <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
-            <ResumeUploadPanel />
+            <ResumeUploadPanel onResumeAnalyzed={(hasCountry) => setResumeHasCountry(hasCountry)} />
             <ExtractedResumeInfoPanel />
           </div>
         );

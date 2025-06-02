@@ -1,4 +1,3 @@
-
 import React, { useState, useCallback } from 'react';
 import { FileUp, File, X, CheckCircle, Clock } from 'lucide-react';
 import { useDropzone } from 'react-dropzone';
@@ -11,7 +10,11 @@ interface ResumeFile {
   progress: number;
 }
 
-const ResumeUploadPanel: React.FC = () => {
+interface ResumeUploadPanelProps {
+  onResumeAnalyzed?: (hasCountry: boolean) => void;
+}
+
+const ResumeUploadPanel: React.FC<ResumeUploadPanelProps> = ({ onResumeAnalyzed }) => {
   const [uploadedFile, setUploadedFile] = useState<ResumeFile | null>(null);
   const [extractedSkills] = useState(['React', 'TypeScript', 'Node.js', 'Python', 'AWS']);
 
@@ -35,13 +38,16 @@ const ResumeUploadPanel: React.FC = () => {
           const newProgress = Math.min(prev.progress + 20, 100);
           if (newProgress === 100) {
             clearInterval(interval);
+            // Simulate resume analysis - randomly determine if country is found
+            const hasCountry = Math.random() > 0.5;
+            onResumeAnalyzed?.(hasCountry);
             return { ...prev, progress: newProgress, status: 'completed' };
           }
           return { ...prev, progress: newProgress };
         });
       }, 300);
     }
-  }, []);
+  }, [onResumeAnalyzed]);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
@@ -59,6 +65,7 @@ const ResumeUploadPanel: React.FC = () => {
 
   const removeFile = () => {
     setUploadedFile(null);
+    onResumeAnalyzed?.(false);
   };
 
   return (
